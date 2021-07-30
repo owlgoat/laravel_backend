@@ -16,7 +16,9 @@ $(function () {
 
     /* 成功時 */
         request.done(function(data){
-            $('#city').val(data[0]);
+            $('#prefecture').val(data[0]);
+            $('#city').val(data[1]);
+            $('#local').val(data[2]);
         });
 
     /* 失敗時 */

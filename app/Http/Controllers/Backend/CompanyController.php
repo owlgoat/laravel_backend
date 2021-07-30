@@ -46,9 +46,11 @@ class CompanyController extends Controller {
 
     public function getAddressByPostcode($postcode)
     {
-        $addresses = Postcode::where('postcode', $postcode)->groupBy('local')->pluck('local');
+        $prefecture = Postcode::where('postcode', $postcode)->groupBy('prefecture')->pluck('prefecture');
+        $city = Postcode::where('postcode', $postcode)->groupBy('city')->pluck('city');
+        $local = Postcode::where('postcode', $postcode)->groupBy('local')->pluck('local');
 
-        return response()->json($addresses, 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json([$prefecture, $city, $local], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     /**

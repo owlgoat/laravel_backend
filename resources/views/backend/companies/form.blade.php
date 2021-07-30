@@ -74,7 +74,7 @@
                             <strong class="field-title">Prefecture</strong>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-content">
-                            {{ Form::select('prefecture_id', App\Models\Prefecture::selectlist(), old('prefecture'), ['class' => 'form-control validate[required, maxSize[100]]', 'data-prompt-position' => 'bottomLeft:0,11']) }}
+                            {{ Form::select('prefecture_id', App\Models\Prefecture::selectlist(), old('prefecture'), ['class' => 'form-control validate[required, maxSize[100]]', 'id' => 'prefecture', 'data-prompt-position' => 'bottomLeft:0,11']) }}
                         </div>
                     </div>
 
@@ -96,7 +96,7 @@
                             <strong class="field-title">Local</strong>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-content">
-                            {{ Form::text('local', $company->local, array('placeholder' => '', 'class' => 'form-control validate[required, maxSize[100]]', 'data-prompt-position' => 'bottomLeft:0,11')) }}
+                            {{ Form::text('local', $company->local, array('placeholder' => '', 'class' => 'form-control validate[required, maxSize[100]]', 'id' => 'local', 'data-prompt-position' => 'bottomLeft:0,11')) }}
                         </div>
                     </div>
                     
