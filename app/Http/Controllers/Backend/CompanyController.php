@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Postcode;
+use App\Models\Prefecture;
 use Config;
 
 class CompanyController extends Controller {
@@ -49,8 +50,9 @@ class CompanyController extends Controller {
         $prefecture = Postcode::where('postcode', $postcode)->groupBy('prefecture')->pluck('prefecture');
         $city = Postcode::where('postcode', $postcode)->groupBy('city')->pluck('city');
         $local = Postcode::where('postcode', $postcode)->groupBy('local')->pluck('local');
+        $id = Prefecture::where('display_name', $prefecture)->groupBy('id')->pluck('id');
 
-        return response()->json([$prefecture, $city, $local], 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json([$id, $prefecture, $city, $local], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     /**
@@ -58,7 +60,7 @@ class CompanyController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function add() {
+        public function add() {
         $company = new Company();
         $company->form_action = $this->getRoute() . '.create';
         $company->page_title = 'Company Add Page';
@@ -130,6 +132,10 @@ class CompanyController extends Controller {
         $newCompany = $request->all();
         try {
             $currentCompany = Company::find($request->get('id'));
+            $path = \Storage::put('/public', $currentCompany->image);
+            $path = explode('/', $path);
+            $currentCompany->image = $path;
+            
             if ($currentCompany) {
                 // Validate input only after getting password, because if not validator will keep complaining that password does not meet validation rules
                 // Hashed password from DB will always have length of 60 characters so it will pass validation
@@ -155,6 +161,7 @@ class CompanyController extends Controller {
         try {
             // Get company by id
             $company = Company::find($request->get('id'));
+            \Storage::delete('/public' . $company->image);
             // If to-delete user is not the one currently logged in, proceed with delete attempt
             if (Auth::id() != $company->id) {
 

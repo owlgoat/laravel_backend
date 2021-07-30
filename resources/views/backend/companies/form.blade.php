@@ -172,6 +172,7 @@
                     </div>
 
                     {{-- Image --}}
+                    @if($company->page_type == 'create')
                     <div id="form-image" class="form-group">
                         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-header">
                             <span class="label label-danger label-required">Required</span>
@@ -179,18 +180,29 @@
                         </div>
                         <div class="image-preview-area">
                             {{ Form::hidden('MAX_FILE_SIZE', '5242880') }}
-                            {{ Form::file('image', $company->image, array('accept' => 'image/*', 'placeholder' => '', 'class' => 'form-control validate[required, checkFileType]', 'data-prompt-position' => 'bottomLeft:0,11')) }}
+                            {{ Form::file('image', array('accept' => 'image/*', 'placeholder' => '', 'class' => 'validate[required, checkFileType]', 'data-prompt-position' => 'bottomLeft:0,14')) }}
                             <label class="image-upload-label">画像をアップロードして下さい（推奨サイズ：1280px × 720px・容量は5MBまで）</label>
-                            {{-- <form action="" method="post" enctype="multipart/form-data">
-                                {{ csrf_field() }} --}}
-                                {{-- <input type="file" class="btn" name="image" id="images"> --}}
-                            {{-- </form> --}}
                             <div class="image-preview">
                                 <img id="preview" src="https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-1024x898.png">
-                                {{-- <img src="https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-1024x898.png"> --}}
                             </div>
                         </div>
                     </div>
+                    @else
+                    <div id="form-image" class="form-group">
+                        <div class="col-xs-12 col-sm-12 col-md-3 col-lg-2 col-header">
+                            <span class="label label-danger label-required">Required</span>
+                            <strong class="field-title">Image</strong>
+                        </div>
+                        <div class="image-preview-area">
+                            {{ Form::hidden('MAX_FILE_SIZE', '5242880') }}
+                            {{ Form::file('image', array('accept' => 'image/*', 'placeholder' => '', 'class' => 'form-control validate[required, checkFileType]', 'data-prompt-position' => 'bottomLeft:0,11')) }}
+                            <label class="image-upload-label">画像をアップロードして下さい（推奨サイズ：1280px × 720px・容量は5MBまで）</label>
+                            <div class="image-preview">
+                                <img id="preview" src="{{ '/storage' . $company['image'] }}">
+                            </div>
+                        </div>
+                    </div>
+                    @endif
 
                     <div id="form-button" class="form-group no-border">
                         <div class="col-xs-12 col-sm-12 col-md-12 text-center" style="margin-top: 20px;">
