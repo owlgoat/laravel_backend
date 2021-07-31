@@ -14,7 +14,15 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Company List Page</h3>
+                    <button onclick="location.href='{{ route('companies.add') }}'" type="button" id="add-link" class="back btn btn-primary">Add</button>
                 </div>
+                {{-- <div class="tabulator-number">
+                    <ul>
+                        <li>件中</li>
+                        <li>〜</li>
+                        <li>件を表示</li>
+                    </ul>
+                </div> --}}
                 <!-- /.box-header -->
                 <div class="box-body">
                     {{-- show success message --}}

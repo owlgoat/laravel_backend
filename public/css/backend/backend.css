@@ -141,6 +141,17 @@ input[type=number]::-webkit-outer-spin-button {
 	color: #960000;
 	clear:both;
 }
+.back {
+    float: right;
+}
+.tabulator-number {
+    float: right;
+    margin-right: 30px;
+}
+.tabulator-number li {
+    float: left;
+    list-style: none;
+}
 .form-group {
     margin: 0;
     padding: 25px 0;

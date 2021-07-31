@@ -15,6 +15,7 @@
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">{{ $company->page_title }}</h3>
+                    <button onclick="location.href='javascript:history.back()'" type="button" id="back" class="back btn btn-primary">Back</button>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body">
@@ -198,7 +199,7 @@
                             {{ Form::file('image', array('accept' => 'image/*', 'placeholder' => '', 'class' => 'validate[checkFileType]', 'data-prompt-position' => 'bottomLeft:0,11')) }}
                             <label class="image-upload-label">画像をアップロードして下さい（推奨サイズ：1280px × 720px・容量は5MBまで）</label>
                             <div class="image-preview">
-                                <img id="preview" src="{{ Storage::url($company->image) }}">
+                                <img id="preview" src="{{ asset('uploads/files/'.$company->image) }}">
                             </div>
                         </div>
                     </div>
