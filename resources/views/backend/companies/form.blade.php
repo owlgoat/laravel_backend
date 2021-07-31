@@ -74,7 +74,7 @@
                             <strong class="field-title">Prefecture</strong>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-content">
-                            {{ Form::select('prefecture_id', App\Models\Prefecture::selectlist(), old('prefecture'), ['class' => 'form-control validate[required, maxSize[100]]', 'id' => 'prefecture', 'data-prompt-position' => 'bottomLeft:0,11']) }}
+                            {{ Form::select('prefecture_id', App\Models\Prefecture::selectlist(), old('prefecture_id', $company->prefecture_id), ['class' => 'form-control validate[required, maxSize[100]]', "selected" => old('prefecture_id', $company->prefecture_id) ? "selected" : "", 'id' => 'prefecture', 'data-prompt-position' => 'bottomLeft:0,11']) }}
                         </div>
                     </div>
 
@@ -180,7 +180,7 @@
                         </div>
                         <div class="image-preview-area">
                             {{ Form::hidden('MAX_FILE_SIZE', '5242880') }}
-                            {{ Form::file('image', array('accept' => 'image/*', 'placeholder' => '', 'class' => 'validate[required, checkFileType]', 'data-prompt-position' => 'bottomLeft:0,14')) }}
+                            {{ Form::file('image', array('placeholder' => '', 'class' => 'validate[required, checkFileType]', 'data-prompt-position' => 'bottomLeft:0,14')) }}
                             <label class="image-upload-label">画像をアップロードして下さい（推奨サイズ：1280px × 720px・容量は5MBまで）</label>
                             <div class="image-preview">
                                 <img id="preview" src="https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-1024x898.png">
@@ -195,10 +195,10 @@
                         </div>
                         <div class="image-preview-area">
                             {{ Form::hidden('MAX_FILE_SIZE', '5242880') }}
-                            {{ Form::file('image', array('accept' => 'image/*', 'placeholder' => '', 'class' => 'form-control validate[required, checkFileType]', 'data-prompt-position' => 'bottomLeft:0,11')) }}
+                            {{ Form::file('image', array('accept' => 'image/*', 'placeholder' => '', 'class' => 'validate[required, checkFileType]', 'data-prompt-position' => 'bottomLeft:0,11')) }}
                             <label class="image-upload-label">画像をアップロードして下さい（推奨サイズ：1280px × 720px・容量は5MBまで）</label>
                             <div class="image-preview">
-                                <img id="preview" src="{{ '/storage' . $company['image'] }}">
+                                <img id="preview" src="{{ 'storage/public' . $company->image }}">
                             </div>
                         </div>
                     </div>

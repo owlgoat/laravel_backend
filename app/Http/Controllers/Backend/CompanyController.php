@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Models\Company;
 use App\Models\Postcode;
@@ -31,9 +32,8 @@ class CompanyController extends Controller {
         // Determine if password validation is required depending on the calling
         return Validator::make($data, [
                 'name' => 'required|string|max:255',
-                // (update: not required, create: required)
                 'email' => 'required|string|max:255',
-                'postcode' => 'required|string|max:7',
+                'postcode' => 'required|max:7',
                 // 'prefecture' => 'required',
                 'city' => 'required|string|max:255',
                 'local' => 'required|string|max:255',
@@ -87,10 +87,10 @@ class CompanyController extends Controller {
         $this->validator($newCompany, 'create')->validate();
 
         try {
+            $filename = $request->file('image')->getClientOriginalName();
+            $newCompany['image'] = $filename;
+            $request->file('image')->storeAs('/public', $filename);
             $company = Company::create($newCompany);
-            $path = \Storage::put('/public', $company->image);
-            $path = explode('/', $path);
-            $company->image = $path;
             if ($company) {
                 // Create is successful, back to list
                 return redirect()->route($this->getRoute())->with('success', Config::get('const.SUCCESS_CREATE_MESSAGE'));
@@ -111,7 +111,7 @@ class CompanyController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function edit($id) {
-        $company = Company::find($id);
+        $company = Company::findOrFail($id);
         $company->form_action = $this->getRoute() . '.update';
         $company->page_title = 'Company Edit Page';
         // Add page type here to indicate that the form.blade.php is in 'edit' mode
@@ -132,9 +132,19 @@ class CompanyController extends Controller {
         $newCompany = $request->all();
         try {
             $currentCompany = Company::find($request->get('id'));
-            $path = \Storage::put('/public', $currentCompany->image);
-            $path = explode('/', $path);
-            $currentCompany->image = $path;
+            // $path = \Storage::put('/public', $currentCompany->image);
+            // $path = explode('/', $path);
+            if($request->hasFile('image')) {
+                Storage::delete('public/' . $currentCompany->image);
+                // $filename = $request->file('image')->getClientOriginalName();
+                // $path = $request->file('image')->storeAs('public', $filename);
+                // $currentCompany->image = $path;
+                $filename = $request->file('image')->getClientOriginalName();
+                $currentCompany->image = $filename;
+                $request->file('image')->storeAs('/public', $filename);
+                // $path = $request->file('image')->store('public/');
+                // $currentCompany->image = basename($path);
+            }
             
             if ($currentCompany) {
                 // Validate input only after getting password, because if not validator will keep complaining that password does not meet validation rules
@@ -161,7 +171,7 @@ class CompanyController extends Controller {
         try {
             // Get company by id
             $company = Company::find($request->get('id'));
-            \Storage::delete('/public' . $company->image);
+            Storage::delete('/public/'.$company->image);
             // If to-delete user is not the one currently logged in, proceed with delete attempt
             if (Auth::id() != $company->id) {
 

@@ -20,15 +20,6 @@ $(function () {
             $('#city').val(data[2]);
             $('#local').val(data[3]);
         });
-
-    /* 失敗時 */
-        request.fail(function(XMLHttpRequest, textStatus, errorThrown){
-            alert("通信に失敗しました");
-            console.log("XMLHttpRequest : " + XMLHttpRequest.status);
-            console.log("textStatus     : " + textStatus);
-            console.log("errorThrown    : " + errorThrown.message);
-        });
-
     });
 
     $("[name='image']").on('change', function (e) {
