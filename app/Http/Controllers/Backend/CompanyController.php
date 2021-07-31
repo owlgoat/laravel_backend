@@ -37,7 +37,8 @@ class CompanyController extends Controller {
                 // 'prefecture' => 'required',
                 'city' => 'required|string|max:255',
                 'local' => 'required|string|max:255',
-                'image' => 'required',
+                // 'image' => 'required',
+                // (update: not required, create: required)
         ]);
     }
 

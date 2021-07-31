@@ -195,10 +195,10 @@
                         </div>
                         <div class="image-preview-area">
                             {{ Form::hidden('MAX_FILE_SIZE', '5242880') }}
-                            {{ Form::file('image', array('accept' => 'image/*', 'placeholder' => '', 'class' => 'validate[required, checkFileType]', 'data-prompt-position' => 'bottomLeft:0,11')) }}
+                            {{ Form::file('image', array('accept' => 'image/*', 'placeholder' => '', 'class' => 'validate[checkFileType]', 'data-prompt-position' => 'bottomLeft:0,11')) }}
                             <label class="image-upload-label">画像をアップロードして下さい（推奨サイズ：1280px × 720px・容量は5MBまで）</label>
                             <div class="image-preview">
-                                <img id="preview" src="{{ 'storage/public' . $company->image }}">
+                                <img id="preview" src="{{ Storage::url($company->image) }}">
                             </div>
                         </div>
                     </div>
