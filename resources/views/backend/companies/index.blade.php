@@ -16,13 +16,15 @@
                     <h3 class="box-title">Company List Page</h3>
                     <button onclick="location.href='{{ route('companies.add') }}'" type="button" id="add-link" class="back btn btn-primary">Add</button>
                 </div>
-                {{-- <div class="tabulator-number">
-                    <ul>
-                        <li>件中</li>
-                        <li>〜</li>
-                        <li>件を表示</li>
-                    </ul>
-                </div> --}}
+                <div class="tabulator-number">
+                    @if (count($company) >0)
+                        <p>{{ $company->total() }}件中
+                            {{ ($company->currentPage() -1) * $company->perPage() +1 }}〜
+                            {{ (($company->currentPage() -1) * $company->perPage() +1) + (count($company) -1) }}件を表示</p>
+                    @else
+                    <p>データがありません</p>
+                    @endif
+                </div>
                 <!-- /.box-header -->
                 <div class="box-body">
                     {{-- show success message --}}

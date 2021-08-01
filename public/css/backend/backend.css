@@ -148,10 +148,6 @@ input[type=number]::-webkit-outer-spin-button {
     float: right;
     margin-right: 30px;
 }
-.tabulator-number li {
-    float: left;
-    list-style: none;
-}
 .form-group {
     margin: 0;
     padding: 25px 0;

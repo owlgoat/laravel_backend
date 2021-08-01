@@ -14,11 +14,8 @@ class ApiCompaniesController extends Controller
      */
     public function getCompaniesTabular() {
         $companies = Company::orderBy('id', 'desc')->get();
+        // $companies->append('address');
+        // $companies->address = $companies->city.$companies->local.$companies->street_address;
         return response()->json($companies);
-    }
-
-    public function getPrefecturesTabular() {
-        $prefectures = Prefecture::orderBy('id', 'desc')->get();
-        return response()->json($prefectures);
     }
 }
