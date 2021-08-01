@@ -147,10 +147,16 @@ class CompanyController extends Controller {
                 // Also indicate this is 'update' function
                 $this->validator($newCompany, 'update')->validate();
 
-                $request->file('image')->storeAs('', $currentCompany->image, 'public_uploads');
+                $filename = 'Image_' . $currentCompany->id . '.png';
                 // Only hash the password if it needs to be hashed
                 // Update user
                 $currentCompany->update($newCompany);
+                if($request->file('image')) {
+                    $filename = 'Image_' . $currentCompany->id . '.png';
+                    $request->file('image')->storeAs('', $filename, 'public_uploads');
+                    $currentCompany->image = $filename;
+                    $currentCompany->save();
+                }
                 // If update is successful
                 return redirect()->route($this->getRoute())->with('success', Config::get('const.SUCCESS_UPDATE_MESSAGE'));
             } else {
