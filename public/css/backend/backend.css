@@ -365,6 +365,8 @@ input[type=checkbox].inline-block {
 .image-preview-area .image-preview img {
 	/*border: 1px solid #eee;*/
 	width: 250px;
+    height: 100%;
+    object-fit: contain;
 }
 .image-preview-verify, .image-preview-verify img {
     margin-top: 10px;

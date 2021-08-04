@@ -5,9 +5,9 @@ $(function () {
     $('li#menu-companies').find('.treeview-menu').find('.add-companies a').addClass('sub-menu-active');
 
     $('#get_addr').on('click', function(){
-        var postcode = $('#postcode').val(); //id=postcodeのinputの内容が挿入
+        var postcode = $('#postcode').val();
         var request = $.ajax({
-            type: 'GET', //住所を取得するのでget
+            type: 'GET',
             url: '/postcode/' + postcode + '/address',
             cache: false,
             dataType: 'json',

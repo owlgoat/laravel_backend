@@ -56,7 +56,7 @@ class CompanyController extends Controller {
         $local = Postcode::where('postcode', $postcode)->groupBy('local')->pluck('local');
         $id = Prefecture::where('display_name', $prefecture)->groupBy('id')->pluck('id');
 
-        return response()->json([$id, $prefecture, $city, $local], 200, [], JSON_UNESCAPED_UNICODE);
+        return response()->json([$id, $city, $local], 200, [], JSON_UNESCAPED_UNICODE);
     }
 
     /**
